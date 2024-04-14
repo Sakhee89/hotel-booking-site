@@ -19,7 +19,20 @@ const Auth = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const { data: session } = useSession();
+
+  console.log(session);
+
+  const loginHandler = async () => {
+    try {
+      await signIn();
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     signUp(formData)
@@ -27,11 +40,20 @@ const Auth = () => {
         if (user) {
           toast.success("Success. Please sign in");
         }
-        console.log(formData);
+        setFormData({
+          email: "",
+          name: "",
+          password: "",
+        });
       })
       .catch((error) => {
         console.log(error);
         toast.error("Something went wrong");
+        setFormData({
+          email: "",
+          name: "",
+          password: "",
+        });
       });
   };
 
@@ -44,9 +66,15 @@ const Auth = () => {
           </h1>
           <p>OR</p>
           <span className="inline-flex items-center">
-            <AiFillGithub className="mr-3 text-4xl cursor-pointer text-black" />{" "}
+            <AiFillGithub
+              onClick={loginHandler}
+              className="mr-3 text-4xl cursor-pointer text-black"
+            />{" "}
             |
-            <FcGoogle className="ml-3 text-4xl cursor-pointer" />
+            <FcGoogle
+              onClick={loginHandler}
+              className="ml-3 text-4xl cursor-pointer"
+            />
           </span>
         </div>
 
@@ -88,7 +116,9 @@ const Auth = () => {
           </button>
         </form>
 
-        <button className="text-blue-700 underline">login</button>
+        <button onClick={loginHandler} className="text-blue-700 underline">
+          login
+        </button>
       </div>
     </section>
   );
