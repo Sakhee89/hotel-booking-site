@@ -3,6 +3,9 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import { signUp } from "next-auth-sanity/client";
+import { signIn, useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 const Auth = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +21,18 @@ const Auth = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    signUp(formData)
+      .then((user) => {
+        if (user) {
+          toast.success("Success. Please sign in");
+        }
+        console.log(formData);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Something went wrong");
+      });
   };
 
   return (
