@@ -7,7 +7,6 @@ import Image from "next/image";
 
 export const Header: React.FC = () => {
   const { data: session } = useSession();
-  console.log(session);
 
   return (
     <header className="py-10 px-4 container mx-auto text-xl flex flex-wrap md:flex-nowrap items-center justify-between">
