@@ -2,9 +2,10 @@ import Image from "next/image";
 
 export const heading1 = (
   <>
-    <h1 className="font-heading mb-6">Find your favourite hotel with us</h1>
+    <h1 className="font-heading mb-6">Explore our Fabulous Hotel</h1>
     <p className="text-[#4a4a4a] mb-12 max-w-lg">
-      Experience the best hotels at the top destinations
+      Conveniently situated in the city centre, this hotel puts you close to
+      attractions and interesting dining options.
     </p>
     <button className="btn-primary">Get Started</button>
   </>
