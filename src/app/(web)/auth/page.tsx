@@ -23,9 +23,9 @@ const Auth = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  useEffect(() => {
-    if (session) router.push("/");
-  }, [router, session]);
+  // useEffect(() => {
+  //   if (session) router.push("/");
+  // }, [router, session]);
 
   const loginHandler = () => {
     signIn()
