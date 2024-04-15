@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header/Header";
-import { Footer } from "@/components/Header/Footer/Footer";
+import { Footer } from "@/components/Footer/Footer";
 import { NextAuthProvider } from "@/components/AuthProvider/AuthProvider";
 import Toast from "@/components/Toast/Toast";
 
@@ -14,7 +14,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Hotel Management App",
+  title: "Hotel Booking App",
   description: "Book a room with us",
 };
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { BiMessageDetail } from "react-icons/bi";
 import { BsFillSendFill, BsTelephoneOutbound } from "react-icons/bs";
 
-export const Footer:React.FC = () => {
+export const Footer: React.FC = () => {
   return (
     <footer className="mt-16">
       <div className="container mx-auto px-4">
@@ -46,7 +46,7 @@ export const Footer:React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-tertiary-light h-10 md:h-[70px] mt-16 w-full bottom-0 left-0" />
+      <div className="bg-[#F2C641] h-10 md:h-[70px] mt-16 w-full bottom-0 left-0" />
     </footer>
   );
 };
