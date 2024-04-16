@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { RoomCard } from "@/components/RoomCard/RoomCard";
 import { Search } from "@/components/Search/Search";
