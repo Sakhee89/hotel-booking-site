@@ -132,7 +132,7 @@ export const HotelPhotoGallery: FC<{ photos: ImageType[] }> = ({ photos }) => {
                 className="absolute top-2 right-2 text-white text-lg"
                 onClick={closeModel}
               >
-                <MdCancel className="font-medium text-2xl text-tertiary-dark" />
+                <MdCancel className="font-medium text-2xl " />
               </button>
             </div>
           </div>
