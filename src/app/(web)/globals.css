@@ -5,9 +5,11 @@
 .inputStyles {
   @apply border border-gray-300 sm:text-sm text-black rounded-lg block w-full p-2.5 focus:outline-none;
 }
+
 .scale-animation {
   @apply hover:scale-125 transition-all duration-700;
 }
+
 .img {
   @apply object-cover w-full h-full;
 }
