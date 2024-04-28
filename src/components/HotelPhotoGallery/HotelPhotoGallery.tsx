@@ -8,14 +8,14 @@ import { MdCancel } from "react-icons/md";
 
 export const HotelPhotoGallery: FC<{ photos: ImageType[] }> = ({ photos }) => {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  const [showModel, setShowModel] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const openModel = (index: number) => {
+  const openModal = (index: number) => {
     setCurrentPhotoIndex(index);
-    setShowModel(true);
+    setShowModal(true);
   };
 
-  const closeModel = () => setShowModel(false);
+  const closeModal = () => setShowModal(false);
 
   const handlePrevious = () => {
     setCurrentPhotoIndex((prevIndex) =>
@@ -45,7 +45,7 @@ export const HotelPhotoGallery: FC<{ photos: ImageType[] }> = ({ photos }) => {
               className="img scale-animation cursor-pointer"
               width={150}
               height={150}
-              onClick={openModel.bind(this, 0)}
+              onClick={openModal.bind(this, 0)}
             />
           </div>
           <div className="md:hidden flex justify-center items-center w-full h-full">
@@ -55,7 +55,7 @@ export const HotelPhotoGallery: FC<{ photos: ImageType[] }> = ({ photos }) => {
               className="img"
               width={150}
               height={150}
-              onClick={openModel.bind(this, 0)}
+              onClick={openModal.bind(this, 0)}
             />
           </div>
         </div>
@@ -87,7 +87,7 @@ export const HotelPhotoGallery: FC<{ photos: ImageType[] }> = ({ photos }) => {
           {remainingPhotosCount > 0 && (
             <div
               className="cursor-pointer relative h-64 rounded-2xl overflow-hidden"
-              onClick={openModel.bind(this, maximumVisiblePhotos)}
+              onClick={openModal.bind(this, maximumVisiblePhotos)}
             >
               <Image
                 width={150}
@@ -103,7 +103,7 @@ export const HotelPhotoGallery: FC<{ photos: ImageType[] }> = ({ photos }) => {
           )}
         </div>
 
-        {showModel && (
+        {showModal && (
           <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-90 z-[55]">
             <div className="h-[75vh] w-[320px] md:w-[700px] relative">
               <Image
@@ -130,7 +130,7 @@ export const HotelPhotoGallery: FC<{ photos: ImageType[] }> = ({ photos }) => {
               </div>
               <button
                 className="absolute top-2 right-2 text-white text-lg"
-                onClick={closeModel}
+                onClick={closeModal}
               >
                 <MdCancel className="font-medium text-2xl " />
               </button>
