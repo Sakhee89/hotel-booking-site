@@ -8,11 +8,19 @@ import { AiOutlineMedicineBox } from "react-icons/ai";
 import { LiaFireExtinguisherSolid } from "react-icons/lia";
 import { MdOutlineCleaningServices } from "react-icons/md";
 import { GiSmokeBomb } from "react-icons/gi";
+import { BookRoom } from "@/components/BookRoom/BookRoom";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const RoomDetails = (props: { params: { slug: string } }) => {
   const {
     params: { slug },
   } = props;
+
+  const [checkinDate, setCheckinDate] = useState<Date | null>(null);
+  const [checkoutDate, setCheckoutDate] = useState<Date | null>(null);
+  const [adults, setAdults] = useState(1);
+  const [noOfChildren, setNoOfChildren] = useState(0);
 
   const fetchRoom = async () => getRoom(slug);
 
@@ -23,6 +31,34 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     throw new Error("Cannot fetch data");
 
   if (!room) return <LoadingSpinner />;
+
+  const calcMinCheckoutDate = () => {
+    if (checkinDate) {
+      const nextDay = new Date(checkinDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      return nextDay;
+    }
+    return null;
+  };
+
+  const calcNumDays = () => {
+    if (!checkinDate || !checkoutDate) return;
+    const timeDiff = checkoutDate.getTime() - checkinDate.getTime();
+    const noOfDays = Math.ceil(timeDiff / (24 * 60 * 60 * 1000));
+    return noOfDays;
+  };
+
+  const handleBookNowClick = () => {
+    if (!checkinDate || !checkoutDate)
+      return toast.error("Please provide checkin / checkout date");
+
+    if (checkinDate > checkoutDate)
+      return toast.error("Please choose a valid checkin period");
+
+    const numberOfDays = calcNumDays();
+
+    const hotelRoomSlug = room.slug.current;
+  };
 
   return (
     <div>
@@ -95,10 +131,28 @@ const RoomDetails = (props: { params: { slug: string } }) => {
                   <p className="md:text-lg font-semibold">Customer Reviews</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  review
+                  No Reviews
                 </div>
               </div>
             </div>
+          </div>
+          <div className="md:col-span-4 rounded-xl shadow-lg sticky top-10 h-fit overflow-auto">
+            <BookRoom
+              discount={room.discount}
+              price={room.price}
+              specialNote={room.specialNote}
+              checkinDate={checkinDate}
+              setCheckinDate={setCheckinDate}
+              checkoutDate={checkoutDate}
+              setCheckoutDate={setCheckoutDate}
+              calcMinCheckoutDate={calcMinCheckoutDate}
+              adults={adults}
+              noOfChildren={noOfChildren}
+              setAdults={setAdults}
+              setNoOfChildren={setNoOfChildren}
+              isBooked={room.isBooked}
+              handleBookNowClick={handleBookNowClick}
+            />
           </div>
         </div>
       </div>
