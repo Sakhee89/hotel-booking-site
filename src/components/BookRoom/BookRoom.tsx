@@ -50,11 +50,11 @@ export const BookRoom: FC<Props> = (props) => {
 
   return (
     <div className="px-7 py-6">
-      <h2>
+      <h2 className="px-3">
         <span
           className={`${
             discount
-              ? "text-red-700 line-through text-xs"
+              ? "text-red-700 line-through text-sm"
               : "text-black font-bold text-xl"
           } `}
         >
