@@ -11,6 +11,8 @@ import { GiSmokeBomb } from "react-icons/gi";
 import { BookRoom } from "@/components/BookRoom/BookRoom";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { getStripe } from "@/libs/stripe";
 
 const RoomDetails = (props: { params: { slug: string } }) => {
   const {
@@ -48,7 +50,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     return noOfDays;
   };
 
-  const handleBookNowClick = () => {
+  const handleBookNowClick = async () => {
     if (!checkinDate || !checkoutDate)
       return toast.error("Please provide checkin / checkout date");
 
@@ -58,6 +60,32 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     const numberOfDays = calcNumDays();
 
     const hotelRoomSlug = room.slug.current;
+
+    const stripe = await getStripe();
+
+    try {
+      const { data: stripeSession } = await axios.post("/api/stripe", {
+        checkinDate,
+        checkoutDate,
+        adults,
+        children: noOfChildren,
+        numberOfDays,
+        hotelRoomSlug,
+      });
+      console.log(stripe);
+      if (stripe) {
+        const result = await stripe.redirectToCheckout({
+          sessionId: stripeSession.id,
+        });
+
+        if (result.error) {
+          toast.error("Payment Failed");
+        }
+      }
+    } catch (error) {
+      console.log("Error: ", error);
+      toast.error("An error occured");
+    }
   };
 
   return (
@@ -117,7 +145,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
                   <div className="flex items-center my-1 md:my-0">
                     <AiOutlineMedicineBox />
                     <p className="ml-2 md:text-base text-xs">
-                      Disinfections and Sterilizations
+                      Disinfections and Sterilisations
                     </p>
                   </div>
                   <div className="flex items-center my-1 md:my-0">
